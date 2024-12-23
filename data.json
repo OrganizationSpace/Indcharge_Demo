@@ -1,0 +1,38 @@
+{
+  "name": "radha_template",
+  "language": "en_US",
+  "category": "MARKETING",
+  "components": [
+    {
+      "type": "HEADER",
+      "format": "TEXT",
+      "text": "dear gamer "
+  }, 
+      {
+          "type": "BODY",
+          "text": "Hi {{1}}! For a limited time only you can get our {{2}} for as low . Tap the Offer Details button for more information",
+          "example": {
+              "body_text": [
+                  [
+                      "Mark","Tuscan Getaway package"
+                  ]
+              ]
+          }
+      },
+      {
+          "type": "FOOTER",
+          "text": "Offer valid until May"
+      },
+      {
+          "type": "BUTTONS",
+          "buttons": [
+              {
+                  "type": "PHONE_NUMBER",
+                  "text": "Call",
+                  "phone_number": "919980087877"
+              }
+             
+          ]
+      }
+  ]
+}
