@@ -99,15 +99,18 @@ router.post('/eligible', authorization, async (req, res) => {
 		
 			code: req.body.code,
 		})
-
+		console.log("integration_list:", integration_list);
+		
 		const check_subscription = await subscription.getActiveProducts({
 			customer_workspace: req.workspace,
 		})
-
+		console.log("check_subscription:",check_subscription);
+		
 		const check = await integration.checkEligible({
 			integration: integration_list,
 			product_codes: check_subscription,
 		})
+		console.log("check:",check);
 	
 
 		res.status(200).json({

@@ -16,6 +16,8 @@ async login({ email, password, workspace }) {
 	
 			const payload = JSON.stringify(data);
 			const signature = sign(payload);
+      console.log("sign",signature);
+      
       const response = await axios.post(`${this.baseUrl}/agent/super/login`, {
         email, password, workspace
       },

@@ -2,7 +2,9 @@ const express = require('express')
 
 const Coupon = require('../controller/coupon')
 const Plan = require('../controller/plan')
-
+const {
+	getCurrentDate,getCurrentDateTo
+} = require('../function/current_time')
 const authorization = require('../function/auth')
 const { sign, attestation } =require('../function/signature')
 const {
@@ -221,4 +223,60 @@ router.post('/redeem', authorization, async (req, res) => {
 
   });
   
+router.post('/test', async (req, res) => {
+	try {
+		const date = getCurrentDate();
+		console.log("date",date);
+	 // const date = new Date("2024-12-10T00:00:00.000Z");
+	 
+	  const testResult = await coupon.test({ date });
+	  console.log("date",testResult);
+	  
+	  return res.status(200).json({
+		success: true,
+		message: 'tested successfully',
+		testResult
+		
+	  });
+  
+	} catch (error) {
+	  console.error(error);
+	  return res.status(500).json({
+		success: false,
+		message: "Internal server error",
+		error: error.message,
+	  });
+	}
+
+  });
+
+router.post('/tests', async (req, res) => {
+	try {
+		const {days} = req.body;
+		const date = getCurrentDateTo(days);
+		console.log("date",date);
+	 // const date = new Date("2024-12-10T00:00:00.000Z");
+	 
+	  const testResult = await coupon.test({ date });
+	  console.log("date",testResult);
+	  
+	  return res.status(200).json({
+		success: true,
+		message: 'tested successfully',
+		testResult
+		
+	  });
+  
+	} catch (error) {
+	  console.error(error);
+	  return res.status(500).json({
+		success: false,
+		message: "Internal server error",
+		error: error.message,
+	  });
+	}
+
+  });
+
+
 module.exports = router

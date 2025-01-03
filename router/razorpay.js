@@ -13,7 +13,9 @@ const router = express.Router()
 
 router.use(express.json())
 
-router.post('/', razorAttestation, async (req, res) => {
+router.post('/', 
+	//razorAttestation, 
+	async (req, res) => {
 	const response = await Data_({
 		data: req.body,
 	})
@@ -88,6 +90,8 @@ router.post('/', razorAttestation, async (req, res) => {
 					// 	}
 					// )
 					sendToQueue('indcharge', 'SUBSCRIPTION_CREATE', req.body)
+					console.log("subscription",req.body);
+					
 					// var signature = sign(payload)
 					// await axios.post(
 					// 	'https://indcharge.api.mindvisiontechnologies.com/transaction/create',
@@ -102,6 +106,7 @@ router.post('/', razorAttestation, async (req, res) => {
 					// 	}
 					// )
 					sendToQueue('indcharge', 'TRANSACTION_CREATE', req.body)
+					console.log("transaction",req.body);
 
 					break
 
@@ -122,7 +127,7 @@ router.post('/', razorAttestation, async (req, res) => {
 //its working
 router.post(
 	'/generatepaymentlink',
-	attestation,
+	//attestation,
 	authorization,
 	async (req, res) => {
 		try {
@@ -136,6 +141,8 @@ router.post(
 			// });
 
 			const link = await razorpay.generatePaymentLink(req)
+			console.log("link",link);
+			
 			res.status(200).json({
 				success: true,
 				message: 'Successfully generated payment link',

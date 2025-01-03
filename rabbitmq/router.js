@@ -29,7 +29,11 @@ async function brokerRouter(data) {
 			case 'TRANSACTION_CREATE':
 				try {
 					const payment = payload.data
+					console.log('PAYMENT', payment);
+					
 					const paymentEntity = payment.payload.payment.entity
+					console.log('PAYMENT ENTITY', paymentEntity);
+					
 					const notes = paymentEntity.notes
 
 					const customerNumber = paymentEntity.contact

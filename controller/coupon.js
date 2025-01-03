@@ -136,5 +136,52 @@ class Coupon {
 			throw error
 		}
 	}
+
+	async test({ date }) {
+			try {
+				const result = await Coupon_.aggregate([
+					{
+						$match: {
+							start_date: { $gte: date },
+							status: "REDEEMED",
+							discount_type: "percentage", 
+						},
+					},
+					{
+						$group: {
+						  _id: null, 
+						  count: { $sum: 1 },
+						  data: {
+							$push: {
+								description: "$description",
+								discount_type: "$discount_type",
+								discount_value: "$discount_value",
+								start_date: "$start_date",
+								end_date: "$end_date",
+								status: "$status",
+							},
+						},	
+						},
+					  },
+					  {
+						$project:{
+							_id: 0,
+						}
+					  }
+				])
+				console.log("result:",result);
+
+				// const response = {
+				// 	count: result.length, 
+				// 	data: result 
+				//   };
+
+				return result
+			} catch (error) {
+				console.error(error)
+				throw error
+			}
+		}
+
 }
 module.exports = Coupon

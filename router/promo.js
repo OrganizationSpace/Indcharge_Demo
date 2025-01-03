@@ -169,7 +169,7 @@ router.post("/remove", authorization, async (req, res) => {
 //   }
 // });
 
-router.post("/redeem", attestation, authorization, async (req, res) => {
+router.post("/redeem", authorization, async (req, res) => {
   try {
     const { plan_code, email: customer, discount_code } = req.body.data;
 

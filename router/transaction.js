@@ -75,7 +75,9 @@ router.use(express.json())
 // 	}
 // })
 
-router.post('/create', attestation, async (req, res) => {
+router.post('/create', 
+	//attestation,
+	 async (req, res) => {
 	try {
 		const paymentFailedData = req.body.data
 		const paymentEntity = paymentFailedData.payload.payment.entity
@@ -196,7 +198,7 @@ router.get('/revenue', async (req, res) => {
 	try {
 		const currentDate = new Date()
 
-		const monthIndex = currentDate.getMonth() // Note the correction here
+		const monthIndex = currentDate.getMonth() // Note the correction here 0-jan
 
 		const monthNumber = monthIndex + 1
 		//console.log(monthNumber)
@@ -214,12 +216,13 @@ router.get('/revenue', async (req, res) => {
 
 		const product_revenue = await transaction.getProductRevenue({ timestamps })
 		const total_revenue = await transaction.getTotalRevenue({ timestamps })
-
+		console.log("total_revenue:",total_revenue);
+		
 		const revenue = {
 			total_revenue: total_revenue.length > 0 ? total_revenue[0].revenue : 0,
 			products: product_revenue,
 		}
-		//console.log('revenue', revenue)
+		console.log('revenue', revenue)
 
 		res.status(200).json({
 			success: true,

@@ -24,7 +24,9 @@ const coupon = new Coupon()
 const history = new History()
 router.use(express.json())
 
-router.post('/create', attestation, async (req, res) => {
+router.post('/create', 
+	//attestation,
+	 async (req, res) => {
 	const session = await mongoose.startSession();
     session.startTransaction();
 	try {
@@ -77,6 +79,7 @@ router.post('/create', attestation, async (req, res) => {
 					code: notes.discount_code,
 					session
 				})
+				console.log('created')
 			}
 		}
 
@@ -118,7 +121,9 @@ router.post('/create', attestation, async (req, res) => {
 	}
 })
 
-router.post('/check', attestation, async (req, res) => {
+router.post('/check', 
+	//attestation,
+	 async (req, res) => {
 	console.log('check data', req.body)
 	try {
 		const code = req.body.code
